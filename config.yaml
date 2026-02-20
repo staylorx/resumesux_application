@@ -1,0 +1,40 @@
+config:
+  customPrompt: "Generate professional content tailored to the job requirements."
+  outputDir: "output"
+  includeCover: true
+  includeFeedback: true
+  digestPath: "digest"
+  folderOrder:
+    - concern
+    - applicant_name
+    - jobreq_title
+  applicant:
+    name: "John Doe"
+    preferred_name: "John"
+    email: "john.doe@example.com"
+    address:
+      street1: "123 Main St"
+      street2: "Apt 4B"
+      city: "Anytown"
+      state: "CA"
+      zip: "12345"
+    phone: "(555) 123-4567"
+    linkedin: "https://linkedin.com/in/johndoe"
+    github: "https://github.com/johndoe"
+    portfolio: "https://johndoe.dev"
+  providers:
+    lmstudio:
+      url: "http://127.0.0.1:1234"
+      key: "dummy-key" # LM Studio doesn't need an API key, this is just a placeholder
+      default: true
+      models:
+        - name: "qwen/qwen2.5-coder-14b"
+          default: false
+          settings:
+            temperature: 0.8
+        - name: "google/gemma-3-12b"
+          default: false
+          settings:
+            temperature: 0.7
+        - name: "qwen2.5-7b-instruct"
+          default: true
