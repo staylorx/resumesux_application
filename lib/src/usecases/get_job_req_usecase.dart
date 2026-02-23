@@ -5,11 +5,13 @@ import 'package:resumesux_application/resumesux_application.dart';
 class GetJobReqUsecase {
   final JobReqRepository jobReqRepository;
   final ExtractJobReqFromFileUsecase createJobReqUsecase;
+  final FileRepository fileRepository;
 
   /// Creates a new instance of [GetJobReqUsecase].
   GetJobReqUsecase({
     required this.jobReqRepository,
     required this.createJobReqUsecase,
+    required this.fileRepository,
   });
 
   /// Retrieves the job requirement for the given path.
@@ -19,17 +21,27 @@ class GetJobReqUsecase {
   /// Parameters:
   /// - [path]: Path to the job requirement file.
   ///
-  /// Returns: [TaskEither<Failure, JobReq>] the job requirement or a failure.
-  TaskEither<Failure, JobReq> call({required String path}) {
-    return jobReqRepository.getJobReq(path: path).orElse((failure) {
-      if (failure is ParsingFailure) {
-        return createJobReqUsecase(
-          path: path,
-        ).map((jobReqWithHandle) => unit).flatMap((_) {
-          return jobReqRepository.getJobReq(path: path);
-        });
-      }
-      return TaskEither.left(failure);
+  /// Returns: [TaskEither<Failure, JobReqWithHandle>] the job requirement with handle or a failure.
+  TaskEither<Failure, JobReqWithHandle> call({required String path}) {
+    return TaskEither.fromEither(fileRepository.readFile(path: path)).flatMap((content) {
+      return jobReqRepository.createJobReqFromContent(
+        content: content,
+        path: path,
+      ).orElse((failure) {
+        if (failure is ParsingFailure) {
+          return createJobReqUsecase(
+            path: path,
+          ).map((jobReqWithHandle) => unit).flatMap((_) {
+            return TaskEither.fromEither(fileRepository.readFile(path: path)).flatMap((content) {
+              return jobReqRepository.createJobReqFromContent(
+                content: content,
+                path: path,
+              );
+            });
+          });
+        }
+        return TaskEither.left(failure);
+      });
     });
   }
 }

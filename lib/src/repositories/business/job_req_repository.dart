@@ -19,6 +19,10 @@ abstract class JobReqRepository
     String? content,
   });
 
-  /// Retrieves a job requirement from the given path.
-  TaskEither<Failure, JobReq> getJobReq({required String path});
+  // TODO: far too coupled to the file system - consider refactoring to accept a stream or similar
+  /// Creates a job requirement from content and path.
+  TaskEither<Failure, JobReqWithHandle> createJobReqFromContent({
+    required String content,
+    required String path,
+  });
 }
