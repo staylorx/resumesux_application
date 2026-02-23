@@ -30,7 +30,7 @@ class GenerateCoverLetterUsecase {
     final gigsContent = applicant.gigs
         .map(
           (gig) =>
-              '${gig.concern} - ${gig.title}\n${gig.achievements?.join('\n') ?? ''}',
+              '${gig.concern?.name} - ${gig.title}\n${gig.achievements?.join('\n') ?? ''}',
         )
         .toList();
     final assetsContent =

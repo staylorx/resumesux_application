@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:resumesux_domain/resumesux_domain.dart';
-import '../failure.dart';
+import '../../failure.dart';
 
 /// Repository for managing Application entities.
 abstract class ApplicationRepository {

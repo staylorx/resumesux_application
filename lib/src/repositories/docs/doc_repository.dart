@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import '../failure.dart';
+import '../../failure.dart';
 
 /// Repository for doc-related operations.
 abstract class DocRepository {

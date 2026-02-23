@@ -1,7 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:resumesux_application/resumesux_application.dart';
 
-// TODO: move out to a different package (e.g., resumesux_data) to avoid coupling with the application layer.
 /// Abstract factory for creating AiService instances.
 abstract class AiServiceFactory {
   /// Creates an AI service for the specified provider.

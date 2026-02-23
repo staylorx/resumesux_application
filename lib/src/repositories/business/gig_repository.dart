@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:resumesux_domain/resumesux_domain.dart';
-import '../failure.dart';
+import '../../failure.dart';
 
 /// Repository for gig-related operations.
 abstract class GigRepository {
@@ -8,6 +8,9 @@ abstract class GigRepository {
   TaskEither<Failure, List<Gig>> getAllGigs();
 
   TaskEither<Failure, List<GigWithHandle>> getAll(); // For listing
+
+  /// Saves a gig.
+  TaskEither<Failure, Unit> save({required GigHandle handle, required Gig gig});
 
   /// Retrieves the last AI responses as JSON string.
   String? getLastAiResponsesJson();
