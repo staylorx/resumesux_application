@@ -8,8 +8,8 @@ class GetJobReqUsecase {
   /// gets the instance of [GetJobReqUsecase].
   GetJobReqUsecase({required this.repository});
 
-  /// Returns: [TaskEither<Failure, JobReq>] containing the enriched applicant or a failure.
-  TaskEither<Failure, JobReq> call(JobReqHandle handle) {
+  /// Returns: [TaskEither<Failure, JobReqWithHandle>] containing the enriched job req or a failure.
+  TaskEither<Failure, JobReqWithHandle> call(String handle) {
     return repository.getByHandle(handle: handle);
   }
 }

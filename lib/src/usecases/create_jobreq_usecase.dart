@@ -32,6 +32,6 @@ class CreateJobReqUseCase {
       content: content,
       contentType: contentType ?? 'text/markdown',
     );
-    return repository.save(handle: handle, jobReq: jobReq).map((_) => handle);
+    return repository.create(item: jobReq).map((_) => handle);
   }
 }

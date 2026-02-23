@@ -64,9 +64,7 @@ class GenerateFeedbackUsecase {
 
     return aiService.generateContent(prompt: fullPrompt).map((content) {
       final feedback = Feedback(content: content);
-      feedbackRepository?.setLastAiResponse({
-        'content': feedback.content,
-      });
+      feedbackRepository?.setLastAiResponse({'content': feedback.content});
       return feedback;
     });
   }
@@ -115,7 +113,8 @@ class GenerateFeedbackUsecase {
     final toneInstruction = _getToneInstruction(tone: tone);
     final lengthInstruction = _getLengthInstruction(length: length);
 
-    final applicantSummary = '''
+    final applicantSummary =
+        '''
 Applicant Information:
 - Name: ${applicant.name}
 - Preferred Name: ${applicant.preferredName ?? 'N/A'}
@@ -127,7 +126,8 @@ Applicant Information:
 - Portfolio: ${applicant.portfolio ?? 'N/A'}
 ''';
 
-    final jobReqSummary = '''
+    final jobReqSummary =
+        '''
 Job Requirement Information:
 - Title: ${jobReqEntity.title}
 - Location: ${jobReqEntity.location ?? 'N/A'}
@@ -135,7 +135,8 @@ Job Requirement Information:
 - Company: ${jobReqEntity.concern?.name ?? 'N/A'}
 ''';
 
-    final aiResponses = '''
+    final aiResponses =
+        '''
 Extracted AI Responses:
 - Job Req AI Response: ${jobReqAiResponse ?? 'N/A'}
 - Gig AI Responses: ${gigAiResponses ?? 'N/A'}

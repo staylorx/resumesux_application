@@ -9,13 +9,9 @@ class UpdateApplicantUsecase {
   UpdateApplicantUsecase({required this.applicantRepository});
 
   /// Update the applicant
-  TaskEither<Failure, Unit> call({
-    required ApplicantHandle handle,
-    required Applicant applicant,
+  TaskEither<Failure, ApplicantWithHandle> call({
+    required ApplicantWithHandle applicantWithHandle,
   }) {
-    return applicantRepository.save(
-      handle: handle,
-      applicant: applicant,
-    );
+    return applicantRepository.update(item: applicantWithHandle);
   }
 }

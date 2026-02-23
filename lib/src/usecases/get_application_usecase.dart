@@ -6,7 +6,7 @@ class GetApplicationUseCase {
 
   GetApplicationUseCase(this.repository);
 
-  TaskEither<Failure, Application> execute(ApplicationHandle handle) {
+  TaskEither<Failure, ApplicationWithHandle> execute(String handle) {
     return repository.getByHandle(handle: handle);
   }
 }

@@ -26,8 +26,8 @@ class ExtractJobReqFromFileUsecase {
   /// - [concern]: Optional company concern.
   /// - [whereFound]: Optional source where the job was found.
   ///
-  /// Returns: [TaskEither<Failure, JobReq>] the created job requirement or a failure.
-  TaskEither<Failure, JobReq> call({
+  /// Returns: [TaskEither<Failure, JobReqWithHandle>] the created job requirement with handle or a failure.
+  TaskEither<Failure, JobReqWithHandle> call({
     String? path,
     String? title,
     String? content,
@@ -58,9 +58,11 @@ class ExtractJobReqFromFileUsecase {
       });
     } else {
       if ((title?.isEmpty ?? true) || (content?.isEmpty ?? true)) {
-        return TaskEither.left(ValidationFailure(
-          'title and content are required when path is not provided',
-        ));
+        return TaskEither.left(
+          ValidationFailure(
+            'title and content are required when path is not provided',
+          ),
+        );
       }
       return _createJobReq(
         title: title!,
@@ -101,7 +103,7 @@ class ExtractJobReqFromFileUsecase {
     });
   }
 
-  TaskEither<Failure, JobReq> _createJobReq({
+  TaskEither<Failure, JobReqWithHandle> _createJobReq({
     required String title,
     required String content,
     String? salary,
@@ -119,7 +121,7 @@ class ExtractJobReqFromFileUsecase {
       createdDate: createdDate,
       whereFound: whereFound,
     );
-    return jobReqRepository.createJobReq(jobReq: jobReq);
+    return jobReqRepository.create(item: jobReq);
   }
 
   String _buildExtractionPrompt({

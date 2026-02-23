@@ -21,9 +21,7 @@ class CreateApplicationUseCase {
     this.feedback,
   });
 
-  TaskEither<Failure, ApplicationHandle> call({
-    required String outputDir,
-  }) {
+  TaskEither<Failure, ApplicationHandle> call({required String outputDir}) {
     final handle = handleGenerator.generateApplicationHandle();
     final newApplication = Application(
       applicant: applicant,
@@ -32,6 +30,6 @@ class CreateApplicationUseCase {
       coverLetter: coverLetter,
       feedback: feedback,
     );
-    return repository.save(handle: handle, application: newApplication).map((_) => handle);
+    return repository.create(item: newApplication).map((_) => handle);
   }
 }

@@ -17,10 +17,12 @@ class SaveAssetAiResponseUsecase {
   TaskEither<Failure, Unit> call({required String jobReqId}) {
     final assetAiResponseJson = assetRepository.getLastAiResponsesJson();
     if (assetAiResponseJson != null) {
-      return assetRepository.saveAiResponse(
-        aiResponseJson: assetAiResponseJson,
-        jobReqId: jobReqId,
-      ).orElse((_) => TaskEither.right(unit));
+      return assetRepository
+          .saveAiResponse(
+            aiResponseJson: assetAiResponseJson,
+            jobReqId: jobReqId,
+          )
+          .orElse((_) => TaskEither.right(unit));
     }
     return TaskEither.right(unit);
   }

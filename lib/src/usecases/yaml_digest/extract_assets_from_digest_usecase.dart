@@ -38,9 +38,7 @@ class ExtractAssetsFromDigestUsecase {
             final tags = Tags.fromList(tagStrings);
             final asset = Asset(tags: tags, content: content);
 
-            // Save to repository
-            final handle = AssetHandle('asset_${asset.content.hashCode}');
-            await assetRepository.save(handle: handle, asset: asset).run();
+            await assetRepository.create(item: asset).run();
           }
         }
 

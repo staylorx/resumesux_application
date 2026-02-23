@@ -4,7 +4,8 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 import '../../failure.dart';
 
 /// Repository for gig-related operations.
-abstract class GigRepository implements BasicCrudContract<Gig> {
+abstract class GigRepository
+    implements BasicCrudContract<Gig, String, GigWithHandle> {
   /// Retrieves the last AI responses as JSON string.
   String? getLastAiResponsesJson();
 

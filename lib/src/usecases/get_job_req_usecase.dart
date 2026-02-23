@@ -21,10 +21,11 @@ class GetJobReqUsecase {
   ///
   /// Returns: [TaskEither<Failure, JobReq>] the job requirement or a failure.
   TaskEither<Failure, JobReq> call({required String path}) {
-    // TODO: not a job for the sembast persistence repo implementation, but for the file system repo implementation. Refactor to move this logic to the file system repo.
     return jobReqRepository.getJobReq(path: path).orElse((failure) {
       if (failure is ParsingFailure) {
-        return createJobReqUsecase(path: path).flatMap((_) {
+        return createJobReqUsecase(
+          path: path,
+        ).map((jobReqWithHandle) => unit).flatMap((_) {
           return jobReqRepository.getJobReq(path: path);
         });
       }

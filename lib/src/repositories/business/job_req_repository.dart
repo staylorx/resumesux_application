@@ -4,7 +4,9 @@ import 'package:resumesux_application/src/repositories/basic_crud_contract.dart'
 
 /// Repository for job requirement-related operations.
 abstract class JobReqRepository
-    implements DocumentRepository, BasicCrudContract<JobReq> {
+    implements
+        DocumentRepository,
+        BasicCrudContract<JobReq, String, JobReqWithHandle> {
   /// Retrieves the last AI response as JSON string.
   @override
   String? getLastAiResponseJson();
@@ -16,4 +18,7 @@ abstract class JobReqRepository
     required String jobReqId,
     String? content,
   });
+
+  /// Retrieves a job requirement from the given path.
+  TaskEither<Failure, JobReq> getJobReq({required String path});
 }

@@ -9,7 +9,7 @@ class GetApplicantUsecase {
   GetApplicantUsecase({required this.applicantRepository});
 
   /// get the applicant record from database
-  TaskEither<Failure, Applicant> call(ApplicantHandle handle) {
+  TaskEither<Failure, ApplicantWithHandle> call(String handle) {
     return applicantRepository.getByHandle(handle: handle);
   }
 }

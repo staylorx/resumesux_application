@@ -4,7 +4,8 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 import '../../failure.dart';
 
 /// Repository for asset-related operations.
-abstract class AssetRepository implements BasicCrudContract<Asset> {
+abstract class AssetRepository
+    implements BasicCrudContract<Asset, String, AssetWithHandle> {
   /// Retrieves the last AI responses as JSON string.
   String? getLastAiResponsesJson();
 

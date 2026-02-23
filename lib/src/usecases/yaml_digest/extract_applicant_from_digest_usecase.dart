@@ -38,10 +38,9 @@ class ExtractApplicantFromDigestUseCase {
         final updatedApplicant = applicant.copyWith(gigs: gigs, assets: assets);
 
         // Save applicant
-        final saveResult = await applicantRepository.save(
-          handle: handle,
-          applicant: updatedApplicant,
-        ).run();
+        final saveResult = await applicantRepository
+            .create(item: updatedApplicant)
+            .run();
 
         if (saveResult.isLeft()) {
           throw saveResult.getLeft().toNullable()!;
@@ -63,8 +62,8 @@ class ExtractApplicantFromDigestUseCase {
     }
 
     final files = gigsDir.listSync().whereType<File>().where(
-          (file) => file.path.endsWith('.md'),
-        );
+      (file) => file.path.endsWith('.md'),
+    );
 
     for (final file in files) {
       final content = await file.readAsString();
@@ -72,7 +71,9 @@ class ExtractApplicantFromDigestUseCase {
       if (data != null) {
         final gig = Gig(
           title: data['title'] as String? ?? 'Unknown',
-          concern: data['concern'] != null ? Concern(name: data['concern'] as String) : null,
+          concern: data['concern'] != null
+              ? Concern(name: data['concern'] as String)
+              : null,
           location: data['location'] as String?,
           dates: data['dates'] as String?,
           achievements: (data['achievements'] as List<dynamic>?)

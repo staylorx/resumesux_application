@@ -33,8 +33,9 @@ class GenerateCoverLetterUsecase {
               '${gig.concern?.name} - ${gig.title}\n${gig.achievements?.join('\n') ?? ''}',
         )
         .toList();
-    final assetsContent =
-        applicant.assets.map((asset) => asset.content).toList();
+    final assetsContent = applicant.assets
+        .map((asset) => asset.content)
+        .toList();
 
     final fullPrompt = _buildCoverLetterPrompt(
       jobReq: jobReq.content,

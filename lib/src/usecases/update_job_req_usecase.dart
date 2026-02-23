@@ -11,10 +11,12 @@ class UpdateJobReqUsecase {
   /// Updates the given job requirement.
   ///
   /// Parameters:
-  /// - [jobReq]: The job requirement to update.
+  /// - [jobReqWithHandle]: The job requirement with handle to update.
   ///
-  /// Returns: [TaskEither<Failure, Unit>] success or a failure.
-  TaskEither<Failure, Unit> call({required JobReq jobReq}) {
-    return jobReqRepository.updateJobReq(jobReq: jobReq);
+  /// Returns: [TaskEither<Failure, JobReqWithHandle>] the updated job req with handle or a failure.
+  TaskEither<Failure, JobReqWithHandle> call({
+    required JobReqWithHandle jobReqWithHandle,
+  }) {
+    return jobReqRepository.update(item: jobReqWithHandle);
   }
 }

@@ -43,8 +43,7 @@ class ExtractGigsFromDigestUsecase {
             );
 
             // Save to repository
-            final handle = GigHandle('gig_${gig.title.hashCode}');
-            await gigRepository.save(handle: handle, gig: gig).run();
+            await gigRepository.create(item: gig).run();
           }
         }
 

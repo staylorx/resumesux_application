@@ -9,7 +9,7 @@ class RemoveJobReqUsecase {
   RemoveJobReqUsecase({required this.jobReqRepository});
 
   /// Remove the job req
-  TaskEither<Failure, Unit> call({required JobReqHandle handle}) {
-    return jobReqRepository.remove(handle: handle);
+  TaskEither<Failure, Unit> call({required String handle}) {
+    return jobReqRepository.deleteByHandle(handle: handle);
   }
 }

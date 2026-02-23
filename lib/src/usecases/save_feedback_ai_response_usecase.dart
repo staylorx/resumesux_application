@@ -17,11 +17,13 @@ class SaveFeedbackAiResponseUsecase {
   TaskEither<Failure, Unit> call({required String jobReqId}) {
     final feedbackAiResponseJson = feedbackRepository?.getLastAiResponseJson();
     if (feedbackAiResponseJson != null && feedbackRepository != null) {
-      return feedbackRepository!.saveAiResponse(
-        aiResponseJson: feedbackAiResponseJson,
-        jobReqId: jobReqId,
-        content: '', // Content is in the JSON
-      ).orElse((_) => TaskEither.right(unit));
+      return feedbackRepository!
+          .saveAiResponse(
+            aiResponseJson: feedbackAiResponseJson,
+            jobReqId: jobReqId,
+            content: '', // Content is in the JSON
+          )
+          .orElse((_) => TaskEither.right(unit));
     }
     return TaskEither.right(unit);
   }

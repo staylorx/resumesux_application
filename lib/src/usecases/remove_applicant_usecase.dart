@@ -9,7 +9,7 @@ class RemoveApplicantUsecase {
   RemoveApplicantUsecase({required this.applicantRepository});
 
   /// Remove the applicant
-  TaskEither<Failure, Unit> call({required ApplicantHandle handle}) {
-    return applicantRepository.remove(handle: handle);
+  TaskEither<Failure, Unit> call({required String handle}) {
+    return applicantRepository.deleteByHandle(handle: handle);
   }
 }

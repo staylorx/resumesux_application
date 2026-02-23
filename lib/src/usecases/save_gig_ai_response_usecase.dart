@@ -17,10 +17,9 @@ class SaveGigAiResponseUsecase {
   TaskEither<Failure, Unit> call({required String jobReqId}) {
     final gigAiResponseJson = gigRepository.getLastAiResponsesJson();
     if (gigAiResponseJson != null) {
-      return gigRepository.saveAiResponse(
-        aiResponseJson: gigAiResponseJson,
-        jobReqId: jobReqId,
-      ).orElse((_) => TaskEither.right(unit));
+      return gigRepository
+          .saveAiResponse(aiResponseJson: gigAiResponseJson, jobReqId: jobReqId)
+          .orElse((_) => TaskEither.right(unit));
     }
     return TaskEither.right(unit);
   }

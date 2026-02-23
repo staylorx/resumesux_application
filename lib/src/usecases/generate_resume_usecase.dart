@@ -7,10 +7,7 @@ class GenerateResumeUsecase {
   final ResumeRepository? resumeRepository;
 
   /// Creates a new instance of [GenerateResumeUsecase].
-  GenerateResumeUsecase({
-    required this.aiService,
-    this.resumeRepository,
-  });
+  GenerateResumeUsecase({required this.aiService, this.resumeRepository});
 
   /// Generates a resume for the given job requirement and applicant.
   ///
@@ -31,8 +28,9 @@ class GenerateResumeUsecase {
               '${gig.concern?.name} - ${gig.title}\n${gig.achievements?.join('\n') ?? ''}',
         )
         .toList();
-    final assetsContent =
-        applicant.assets.map((asset) => asset.content).toList();
+    final assetsContent = applicant.assets
+        .map((asset) => asset.content)
+        .toList();
 
     final fullPrompt = _buildResumePrompt(
       jobReq: jobReq.content,

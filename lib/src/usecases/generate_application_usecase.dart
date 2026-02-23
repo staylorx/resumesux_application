@@ -56,7 +56,11 @@ class GenerateApplicationUsecase {
     required void Function(String) progress,
   }) {
     return TaskEither<Failure, Unit>.right(unit)
-        .map((_) => progress('Starting application generation for job: ${jobReq.title}'))
+        .map(
+          (_) => progress(
+            'Starting application generation for job: ${jobReq.title}',
+          ),
+        )
         .flatMap((_) {
           progress('Generating resume');
           return generateResumeUsecase(
@@ -70,24 +74,29 @@ class GenerateApplicationUsecase {
 
           final coverLetterTask = includeCover
               ? TaskEither<Failure, Unit>.right(unit)
-                  .map((_) => progress('Generating cover letter'))
-                  .flatMap((_) => generateCoverLetterUsecase(
+                    .map((_) => progress('Generating cover letter'))
+                    .flatMap(
+                      (_) => generateCoverLetterUsecase(
                         jobReq: jobReq,
                         resume: resume,
                         applicant: applicant,
                         prompt: prompt,
-                      ))
-                  .map((coverLetter) {
-                    progress('Cover letter generated successfully');
-                    return coverLetter;
-                  })
-              : TaskEither<Failure, CoverLetter>.right(CoverLetter(content: ''));
+                      ),
+                    )
+                    .map((coverLetter) {
+                      progress('Cover letter generated successfully');
+                      return coverLetter;
+                    })
+              : TaskEither<Failure, CoverLetter>.right(
+                  CoverLetter(content: ''),
+                );
 
           return coverLetterTask.flatMap((coverLetter) {
             final feedbackTask = includeFeedback
                 ? TaskEither<Failure, Unit>.right(unit)
-                    .map((_) => progress('Generating feedback'))
-                    .flatMap((_) => generateFeedbackUsecase(
+                      .map((_) => progress('Generating feedback'))
+                      .flatMap(
+                        (_) => generateFeedbackUsecase(
                           jobReq: jobReq,
                           resume: resume,
                           coverLetter: coverLetter,
@@ -95,11 +104,12 @@ class GenerateApplicationUsecase {
                           applicant: applicant,
                           tone: tone,
                           length: length,
-                        ))
-                    .map((feedback) {
-                      progress('Feedback generated successfully');
-                      return feedback;
-                    })
+                        ),
+                      )
+                      .map((feedback) {
+                        progress('Feedback generated successfully');
+                        return feedback;
+                      })
                 : TaskEither<Failure, Feedback>.right(Feedback(content: ''));
 
             return feedbackTask.flatMap((feedback) {
@@ -112,12 +122,26 @@ class GenerateApplicationUsecase {
               );
 
               final jobReqId = jobReq.hashCode.toString();
-              return saveJobReqAiResponseUsecase.call(jobReqId: jobReqId)
-                  .flatMap((_) => saveGigAiResponseUsecase.call(jobReqId: jobReqId))
-                  .flatMap((_) => saveAssetAiResponseUsecase.call(jobReqId: jobReqId))
-                  .flatMap((_) => saveResumeAiResponseUsecase.call(jobReqId: jobReqId))
-                  .flatMap((_) => saveCoverLetterAiResponseUsecase.call(jobReqId: jobReqId))
-                  .flatMap((_) => saveFeedbackAiResponseUsecase.call(jobReqId: jobReqId))
+              return saveJobReqAiResponseUsecase
+                  .call(jobReqId: jobReqId)
+                  .flatMap(
+                    (_) => saveGigAiResponseUsecase.call(jobReqId: jobReqId),
+                  )
+                  .flatMap(
+                    (_) => saveAssetAiResponseUsecase.call(jobReqId: jobReqId),
+                  )
+                  .flatMap(
+                    (_) => saveResumeAiResponseUsecase.call(jobReqId: jobReqId),
+                  )
+                  .flatMap(
+                    (_) => saveCoverLetterAiResponseUsecase.call(
+                      jobReqId: jobReqId,
+                    ),
+                  )
+                  .flatMap(
+                    (_) =>
+                        saveFeedbackAiResponseUsecase.call(jobReqId: jobReqId),
+                  )
                   .map((_) {
                     progress('Application generated successfully');
                     return application;

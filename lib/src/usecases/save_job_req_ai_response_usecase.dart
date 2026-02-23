@@ -6,9 +6,7 @@ class SaveJobReqAiResponseUsecase {
   final JobReqRepository jobReqRepository;
 
   /// Creates a new instance of [SaveJobReqAiResponseUsecase].
-  SaveJobReqAiResponseUsecase({
-    required this.jobReqRepository,
-  });
+  SaveJobReqAiResponseUsecase({required this.jobReqRepository});
 
   /// Saves AI response for the job requirement.
   ///
@@ -19,10 +17,9 @@ class SaveJobReqAiResponseUsecase {
   TaskEither<Failure, Unit> call({required String jobReqId}) {
     final aiResponseJson = jobReqRepository.getLastAiResponseJson();
     if (aiResponseJson != null) {
-      return jobReqRepository.saveAiResponse(
-        aiResponseJson: aiResponseJson,
-        jobReqId: jobReqId,
-      ).orElse((_) => TaskEither.right(unit));
+      return jobReqRepository
+          .saveAiResponse(aiResponseJson: aiResponseJson, jobReqId: jobReqId)
+          .orElse((_) => TaskEither.right(unit));
     }
     return TaskEither.right(unit);
   }
