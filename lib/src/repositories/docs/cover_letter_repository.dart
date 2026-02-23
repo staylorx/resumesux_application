@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:resumesux_application/resumesux_application.dart';
 
 /// Repository for saving cover letter documents.
-abstract class CoverLetterRepository implements DocRepository {
+abstract class CoverLetterRepository implements DocumentRepository {
   /// Saves a cover letter to a file in the specified output directory and to the database.
   ///
   /// Requires jobTitle for file naming and jobReqId for DB.

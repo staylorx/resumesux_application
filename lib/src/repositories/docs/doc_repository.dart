@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import '../../failure.dart';
 
 /// Repository for doc-related operations.
-abstract class DocRepository {
+abstract class DocumentRepository {
   /// Retrieves the last AI response as JSON string.
   String? getLastAiResponseJson();
 

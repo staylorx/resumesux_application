@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:resumesux_application/resumesux_application.dart';
 
 /// Repository for saving resume documents.
-abstract class ResumeRepository implements DocRepository {
+abstract class ResumeRepository implements DocumentRepository {
   /// Saves a resume to a file in the specified output directory and to the database.
   ///
   /// Requires jobTitle for file naming and jobReqId for DB.

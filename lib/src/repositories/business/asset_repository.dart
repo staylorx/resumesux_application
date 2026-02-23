@@ -1,20 +1,10 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:resumesux_application/src/repositories/basic_crud_contract.dart';
 import 'package:resumesux_domain/resumesux_domain.dart';
 import '../../failure.dart';
 
 /// Repository for asset-related operations.
-abstract class AssetRepository {
-  /// Retrieves all assets.
-  TaskEither<Failure, List<Asset>> getAllAssets();
-
-  TaskEither<Failure, List<AssetWithHandle>> getAll(); // For listing
-
-  /// Saves an asset.
-  TaskEither<Failure, Unit> save({
-    required AssetHandle handle,
-    required Asset asset,
-  });
-
+abstract class AssetRepository implements BasicCrudContract<Asset> {
   /// Retrieves the last AI responses as JSON string.
   String? getLastAiResponsesJson();
 
