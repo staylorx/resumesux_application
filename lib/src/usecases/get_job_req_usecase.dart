@@ -23,25 +23,28 @@ class GetJobReqUsecase {
   ///
   /// Returns: [TaskEither<Failure, JobReqWithHandle>] the job requirement with handle or a failure.
   TaskEither<Failure, JobReqWithHandle> call({required String path}) {
-    return TaskEither.fromEither(fileRepository.readFile(path: path)).flatMap((content) {
-      return jobReqRepository.createJobReqFromContent(
-        content: content,
-        path: path,
-      ).orElse((failure) {
-        if (failure is ParsingFailure) {
-          return createJobReqUsecase(
-            path: path,
-          ).map((jobReqWithHandle) => unit).flatMap((_) {
-            return TaskEither.fromEither(fileRepository.readFile(path: path)).flatMap((content) {
-              return jobReqRepository.createJobReqFromContent(
-                content: content,
+    return TaskEither.fromEither(fileRepository.readFile(path: path)).flatMap((
+      content,
+    ) {
+      return jobReqRepository
+          .createJobReqFromContent(content: content, path: path)
+          .orElse((failure) {
+            if (failure is ParsingFailure) {
+              return createJobReqUsecase(
                 path: path,
-              );
-            });
+              ).map((jobReqWithHandle) => unit).flatMap((_) {
+                return TaskEither.fromEither(
+                  fileRepository.readFile(path: path),
+                ).flatMap((content) {
+                  return jobReqRepository.createJobReqFromContent(
+                    content: content,
+                    path: path,
+                  );
+                });
+              });
+            }
+            return TaskEither.left(failure);
           });
-        }
-        return TaskEither.left(failure);
-      });
     });
   }
 }
