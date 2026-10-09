@@ -11,6 +11,10 @@ dependencies:
   resumesux_domain:
     git:
       url: https://github.com/staylorx/resumesux_domain
+  args: ^2.5.0
+  dotenv: ^4.2.0
+  http: ^1.2.0
+  yaml: ^3.1.0
 
 dev_dependencies:
   dart_arch_test: ^0.3.1

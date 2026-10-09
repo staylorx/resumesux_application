@@ -23,9 +23,11 @@ config:
     github: "https://github.com/johndoe"
     portfolio: "https://johndoe.dev"
   providers:
+    # Bring your own inference: set the provider's base URL and model, then
+    # supply the API key via the environment (RESUMESUX_<PROVIDER>_KEY, see
+    # .env.example). No API keys are committed to this file.
     lmstudio:
       url: "http://127.0.0.1:1234"
-      key: "dummy-key" # LM Studio doesn't need an API key, this is just a placeholder
       default: true
       models:
         - name: "qwen/qwen2.5-coder-14b"

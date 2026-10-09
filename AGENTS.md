@@ -14,6 +14,11 @@ bible rules (D.R.Y.: a second copy is a second truth).
 - One hand-written barrel: `lib/resumesux_application.dart` (a `library;`
   re-export of `src/`). No `src/` library may import the barrel (front-door
   closed) — enforced by the boundary gate.
+- Runnable CLI: `bin/resumesux.dart` (`dart run resumesux --help`). Providers
+  (base URL + model list) come from `config.yaml`; each provider's API key is
+  read at runtime from the environment as `RESUMESUX_<PROVIDER>_KEY` (see
+  `.env.example`) — never committed. Adapter implementations live in
+  `lib/src/infrastructure/`.
 - `test/architecture_test.dart` is the `dart_arch_test` boundary gate (§2.9):
   production code is cycle-free, no `src/` library re-enters through the public
   barrel, and `repositories/` + `services/` never depend on `usecases/`.
