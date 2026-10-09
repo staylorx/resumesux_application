@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
@@ -33,6 +34,23 @@ Future<void> main(List<String> args) async {
       'only',
       help:
           'Only run pairs whose persona or job title contains this substring.',
+    )
+    ..addOption(
+      'runs',
+      defaultsTo: '1',
+      help: 'How many times to repeat each pair (variance / pass-rate).',
+    )
+    ..addOption(
+      'out',
+      help: 'Write a JSON report (per-pair pass rates + totals) to this path.',
+    )
+    ..addOption(
+      'job',
+      help: 'Run only the job column(s) whose title contains this substring.',
+    )
+    ..addOption(
+      'persona',
+      help: 'Run only persona rows whose name contains this substring.',
     );
   final parsed = parser.parse(args);
 
@@ -41,6 +59,12 @@ Future<void> main(List<String> args) async {
     stdout.writeln();
     stdout.writeln(parser.usage);
     return;
+  }
+
+  final runs = int.tryParse(parsed['runs'] as String) ?? 1;
+  if (runs < 1) {
+    stderr.writeln('ERROR: --runs must be >= 1');
+    exit(1);
   }
 
   final dot = DotEnv(includePlatformEnvironment: true);
@@ -78,55 +102,112 @@ Future<void> main(List<String> args) async {
   final only = parsed['only'] as String?;
 
   final results = <PairResult>[];
+  final jobFilter = parsed['job'] as String?;
+  final personaFilter = parsed['persona'] as String?;
   for (final persona in personas) {
     for (final job in jobs) {
+      if (jobFilter != null && !_contains(job.title, jobFilter)) continue;
+      if (personaFilter != null && !_contains(persona.name, personaFilter)) {
+        continue;
+      }
       if (only != null &&
           !_contains(persona.name, only) &&
           !_contains(job.title, only)) {
         continue;
       }
       final expectedFit = job.bestFitPersonas.contains(persona.name);
-      final verdictEither = await scorer
-          .score(
-            candidateName: persona.name,
-            candidateSkills: persona.skills,
-            jobTitle: job.title,
-            jobRequired: job.requires,
-          )
-          .run();
-      final verdict = verdictEither.fold(
-        (l) => FitVerdict(fit: null, reason: 'ERROR: ${l.message}', raw: ''),
-        (v) => v,
-      );
+      final verdicts = <FitVerdict>[];
+      for (var run = 0; run < runs; run++) {
+        final verdictEither = await scorer
+            .score(
+              candidateName: persona.name,
+              candidateSkills: persona.skills,
+              jobTitle: job.title,
+              jobRequired: job.requires,
+            )
+            .run();
+        verdicts.add(
+          verdictEither.fold(
+            (l) =>
+                FitVerdict(fit: null, reason: 'ERROR: ${l.message}', raw: ''),
+            (v) => v,
+          ),
+        );
+      }
       results.add(
         PairResult(
           persona: persona.name,
           job: job.title,
           expectedFit: expectedFit,
-          verdict: verdict,
+          verdicts: verdicts,
         ),
       );
     }
   }
 
-  _report(results);
+  _report(results, runs: runs);
+
+  final outPath = parsed['out'] as String?;
+  if (outPath != null) {
+    File(outPath).writeAsStringSync(jsonEncode(_toJson(results, runs: runs)));
+    stdout.writeln('\nWrote JSON report to $outPath');
+  }
 }
 
 class PairResult {
   final String persona;
   final String job;
   final bool expectedFit;
-  final FitVerdict verdict;
+  final List<FitVerdict> verdicts;
 
   PairResult({
     required this.persona,
     required this.job,
     required this.expectedFit,
-    required this.verdict,
+    required this.verdicts,
   });
 
-  bool get inconclusive => verdict.fit == null;
-  bool get correct => !inconclusive && verdict.fit == expectedFit;
+  int get acceptedRuns => verdicts.where((v) => v.fit == true).length;
+  int get rejectedRuns => verdicts.where((v) => v.fit == false).length;
+  int get inconclusiveRuns => verdicts.where((v) => v.fit == null).length;
+  int get correctRuns =>
+      verdicts.where((v) => v.fit != null && v.fit == expectedFit).length;
+
+  double get passRate => verdicts.isEmpty ? 0 : correctRuns / verdicts.length;
+}
+
+Map<String, Object?> _toJson(List<PairResult> results, {required int runs}) {
+  final correct = results.fold(0, (s, r) => s + r.correctRuns);
+  final valid = results.fold(
+    0,
+    (s, r) => s + (r.verdicts.length - r.inconclusiveRuns),
+  );
+  final falseAccepts = results
+      .where((r) => !r.expectedFit)
+      .fold(0, (s, r) => s + r.acceptedRuns);
+  return {
+    'runs': runs,
+    'pairs': results
+        .map(
+          (r) => {
+            'persona': r.persona,
+            'job': r.job,
+            'expectedFit': r.expectedFit,
+            'passRate': r.passRate,
+            'acceptedRuns': r.acceptedRuns,
+            'rejectedRuns': r.rejectedRuns,
+            'inconclusiveRuns': r.inconclusiveRuns,
+          },
+        )
+        .toList(),
+    'totals': {
+      'validRuns': valid,
+      'correctRuns': correct,
+      'accuracy': valid == 0 ? 0.0 : correct / valid,
+      'falseAccepts': falseAccepts,
+      'pairs': results.length,
+    },
+  };
 }
 
 bool _contains(String haystack, String needle) =>
@@ -143,67 +224,44 @@ Future<String> _defaultProviderName(
   }, (p) => p.name);
 }
 
-void _report(List<PairResult> results) {
-  var tp = 0, fp = 0, tn = 0, fn = 0, inc = 0;
-  final rows = <String>[];
+void _report(List<PairResult> results, {required int runs}) {
+  final correct = results.fold(0, (s, r) => s + r.correctRuns);
+  final valid = results.fold(
+    0,
+    (s, r) => s + (r.verdicts.length - r.inconclusiveRuns),
+  );
+  final falseAccepts = results
+      .where((r) => !r.expectedFit)
+      .fold(0, (s, r) => s + r.acceptedRuns);
+
+  stdout.writeln(
+    '=== Fitness matrix (${results.length} pairs, $runs run(s)) ===',
+  );
   for (final r in results) {
-    String mark;
-    if (r.inconclusive) {
-      inc++;
-      mark = '?';
-    } else if (r.verdict.fit! && r.expectedFit) {
-      tp++;
-      mark = 'TP';
-    } else if (r.verdict.fit! && !r.expectedFit) {
-      fp++;
-      mark = 'FP';
-    } else if (!r.verdict.fit! && r.expectedFit) {
-      fn++;
-      mark = 'FN';
-    } else {
-      tn++;
-      mark = 'TN';
-    }
-    final got = r.verdict.fit == null
-        ? 'INCONCLUSIVE'
-        : (r.verdict.fit! ? 'FIT' : 'no-fit');
-    final expected = r.expectedFit ? 'FIT' : 'no-fit';
-    final note = got == expected
-        ? ''
-        : '  <- wrong (reason: ${r.verdict.reason ?? 'n/a'})';
-    rows.add(
-      '  ${mark.padRight(2)} ${r.persona.padRight(24)} -> ${r.job.padRight(28)} '
-      'expected=${expected.padRight(6)} got=$got$note',
+    final passPct = (r.passRate * 100).toStringAsFixed(0).padLeft(3);
+    final note = r.expectedFit ? 'expect FIT' : 'expect no-fit';
+    stdout.writeln(
+      '  $passPct%  ${r.persona.padRight(26)} -> ${r.job.padRight(28)} $note '
+      '(accept ${r.acceptedRuns}/${r.verdicts.length}, '
+      'inconcl ${r.inconclusiveRuns})',
     );
   }
-
-  stdout.writeln('=== Fitness matrix (${results.length} pairs) ===');
-  rows.forEach(stdout.writeln);
   stdout.writeln();
   stdout.writeln('=== Summary ===');
-  stdout.writeln('  pairs         : ${results.length}');
-  stdout.writeln('  TP (accepted expect-fit)      : $tp');
-  stdout.writeln('  TN (rejected expect-no-fit)   : $tn');
-  stdout.writeln('  FP (accepted expect-no-fit!)  : $fp');
-  stdout.writeln('  FN (rejected expect-fit!)     : $fn');
-  stdout.writeln('  inconclusive (parse fail)     : $inc');
-  final scored = tp + tn + fp + fn;
-  final acc = scored == 0 ? 0.0 : (tp + tn) / scored;
+  stdout.writeln('  pairs             : ${results.length}');
+  stdout.writeln('  runs per pair     : $runs');
+  stdout.writeln('  valid verdicts    : $valid');
+  stdout.writeln('  correct verdicts  : $correct');
+  final accText = valid == 0
+      ? 'n/a'
+      : '${((correct / valid) * 100).toStringAsFixed(1)}%';
+  stdout.writeln('  accuracy          : $accText');
   stdout.writeln(
-    '  accuracy (excl. inconclusive) : '
-    '${(acc * 100).toStringAsFixed(1)}%  ($scored scored)',
+    '  false accepts     : $falseAccepts '
+    '(mismatches wrongly accepted across all runs)',
   );
-  stdout.writeln();
-  stdout.writeln('=== Key cross cases (must be rejected) ===');
-  for (final r in results) {
-    if (!r.expectedFit &&
-        ((r.persona.contains('Equipment') && r.job.contains('Data')) ||
-            (r.persona.contains('Data') && r.job.contains('Equipment')) ||
-            (r.persona.contains('Equipment') && r.job.contains('Line Cook')))) {
-      final got = r.verdict.fit == null
-          ? 'INCONCLUSIVE'
-          : (r.verdict.fit! ? 'WRONGLY ACCEPTED' : 'correctly rejected');
-      stdout.writeln('  ${r.persona} -> ${r.job} : $got');
-    }
-  }
+  stdout.writeln(
+    '  inconclusive runs : '
+    '${results.fold(0, (s, r) => s + r.inconclusiveRuns)}',
+  );
 }

@@ -105,6 +105,25 @@ final List<PersonaFixture> personas = const [
       'differentiated instruction',
     ],
   ),
+  PersonaFixture(
+    name: 'ML Bootcamp Grad',
+    skills: [
+      'basic Python',
+      'basic SQL',
+      'Excel',
+      'entry-level ML coursework',
+      'Jupyter notebooks',
+    ],
+  ),
+  PersonaFixture(
+    name: 'Data Science Enthusiast',
+    skills: [
+      'read ML blog posts',
+      'used ChatGPT',
+      'made charts in Excel',
+      'managed social media accounts',
+    ],
+  ),
 ];
 
 final List<JobFixture> jobs = const [
