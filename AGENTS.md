@@ -12,7 +12,11 @@ never restates bible rules (D.R.Y.: a second copy is a second truth).
   `resumesux_domain` package (git dependency). Domain inner → application
   outer; never import platform/IO from a usecase.
 - One hand-written barrel: `lib/resumesux_application.dart` (a `library;`
-  re-export of `src/`).
+  re-export of `src/`). No `src/` library may import the barrel (front-door
+  closed) — enforced by the boundary gate.
+- `test/architecture_test.dart` is the `dart_arch_test` boundary gate (§2.9):
+  production code is cycle-free, no `src/` library re-enters through the public
+  barrel, and `repositories/` + `services/` never depend on `usecases/`.
 - `test/support/test_suite_tool.dart` is a salvaged test-suite-to-README
   reporter (mixin) for recording manual/integration runs — test scaffolding,
   not shipped API.
@@ -29,8 +33,6 @@ never restates bible rules (D.R.Y.: a second copy is a second truth).
 
 ## Known deviations (tracked)
 
-- No `test/` `dart_arch_test` boundary gate (§2.9) yet — the workspace-level
-  direction/cycle gate is not wired as a test.
 - `analysis_options.yaml` strict block is partial: it has `strict-casts` and
   `strict-raw-types`, but is missing `strict-inference`, `todo: error`, and
   `public_member_api_docs` (§2.2 / §9.7).
