@@ -31,14 +31,18 @@ never restates bible rules (D.R.Y.: a second copy is a second truth).
 - **Plain exceptions are reserved for the UI/presentation ring only** — never
   thrown or `try`/`catch`-ed across a usecase boundary.
 
-## Known deviations (tracked)
+## Conformance
 
-- `analysis_options.yaml` strict block is partial: it has `strict-casts` and
-  `strict-raw-types`, but is missing `strict-inference`, `todo: error`, and
-  `public_member_api_docs` (§2.2 / §9.7).
-- The local `resumesux_cli` and `resumesux_infrastructure` folders were
-  **superseded** by this repo + `resumesux_domain` (2026-10 consolidation) and
-  deleted; this repository's contracts/usecases are the canonical versions.
+No open deviations from the dart-flutter-bible: the strict analyzer block
+(`strict-casts` / `strict-inference` / `strict-raw-types`), `todo: error`, and
+`public_member_api_docs` are all enabled and the package analyzes clean; the
+`dart_arch_test` boundary gate is wired and green (see Layer & wiring above).
+
+## History
+
+The local `resumesux_cli` and `resumesux_infrastructure` folders were
+**superseded** by this repo + `resumesux_domain` (2026-10 consolidation) and
+deleted; this repository's contracts/usecases are the canonical versions.
 
 ## Working agreement (velocity)
 
