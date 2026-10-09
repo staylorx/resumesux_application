@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/repositories/docs/feedback_repository.dart';
 
 /// Use case for saving AI responses for feedback to the database.
 class SaveFeedbackAiResponseUsecase {

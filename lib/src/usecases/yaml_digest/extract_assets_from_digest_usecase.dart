@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/repositories/business/asset_repository.dart';
+import 'package:resumesux_application/src/services/ai_service.dart';
+import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for extracting assets from digest markdown files.
 class ExtractAssetsFromDigestUsecase {

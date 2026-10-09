@@ -1,5 +1,11 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/repositories/business/asset_repository.dart';
+import 'package:resumesux_application/src/repositories/business/gig_repository.dart';
+import 'package:resumesux_application/src/repositories/business/job_req_repository.dart';
+import 'package:resumesux_application/src/repositories/docs/feedback_repository.dart';
+import 'package:resumesux_application/src/services/ai_service.dart';
+import 'package:resumesux_domain/resumesux_domain.dart';
 
 // Parameters to control feedback generation:
 // - tone: Controls the tone of feedback (0.0 = brutal feedback, 1.0 = enthusiastic feedback)

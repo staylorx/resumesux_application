@@ -1,6 +1,8 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
 import 'package:resumesux_application/src/repositories/basic_crud_contract.dart';
+import 'package:resumesux_application/src/repositories/docs/doc_repository.dart';
+import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Repository for job requirement-related operations.
 abstract class JobReqRepository

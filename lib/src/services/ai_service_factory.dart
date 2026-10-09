@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/services/ai_service.dart';
 
 /// Abstract factory for creating AiService instances.
 abstract class AiServiceFactory {

@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/repositories/business/job_req_repository.dart';
+import 'package:resumesux_application/src/repositories/file_repository.dart';
+import 'package:resumesux_application/src/services/ai_service.dart';
+import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for creating a new job requirement from a file.
 class ExtractJobReqFromFileUsecase {

@@ -1,5 +1,15 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/usecases/generate_cover_letter_usecase.dart';
+import 'package:resumesux_application/src/usecases/generate_feedback_usecase.dart';
+import 'package:resumesux_application/src/usecases/generate_resume_usecase.dart';
+import 'package:resumesux_application/src/usecases/save_asset_ai_response_usecase.dart';
+import 'package:resumesux_application/src/usecases/save_cover_letter_ai_response_usecase.dart';
+import 'package:resumesux_application/src/usecases/save_feedback_ai_response_usecase.dart';
+import 'package:resumesux_application/src/usecases/save_gig_ai_response_usecase.dart';
+import 'package:resumesux_application/src/usecases/save_job_req_ai_response_usecase.dart';
+import 'package:resumesux_application/src/usecases/save_resume_ai_response_usecase.dart';
+import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for generating a complete job application including resume, cover letter, and feedback.
 class GenerateApplicationUsecase {

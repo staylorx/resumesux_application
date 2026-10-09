@@ -1,5 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/repositories/config/config_repository.dart';
+import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for loading application configuration.
 class GetConfigUsecase {

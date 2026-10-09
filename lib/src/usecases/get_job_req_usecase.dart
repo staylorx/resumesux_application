@@ -1,5 +1,9 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/repositories/business/job_req_repository.dart';
+import 'package:resumesux_application/src/repositories/file_repository.dart';
+import 'package:resumesux_application/src/usecases/extract_jobreq_from_file_usecase.dart';
+import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for retrieving a job requirement, with preprocessing if needed.
 class GetJobReqUsecase {

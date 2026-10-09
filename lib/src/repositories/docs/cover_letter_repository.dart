@@ -1,5 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/repositories/docs/doc_repository.dart';
+import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Repository for saving cover letter documents.
 abstract class CoverLetterRepository implements DocumentRepository {

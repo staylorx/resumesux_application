@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:resumesux_application/resumesux_application.dart';
+import 'package:resumesux_application/src/failure.dart';
+import 'package:resumesux_application/src/repositories/transaction.dart';
 
 /// Abstract Unit of Work for managing transactions across repositories.
 abstract class UnitOfWork {

@@ -13,6 +13,7 @@ dependencies:
       url: https://github.com/staylorx/resumesux_domain
 
 dev_dependencies:
+  dart_arch_test: ^0.3.1
   lints: ^6.0.0
   path: ^1.8.3
   test: ^1.28.0
