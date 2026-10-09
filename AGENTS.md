@@ -3,8 +3,8 @@
 This package is built to the **taybiz/dart-flutter-bible** (private clone:
 `C:/awork_local/mine/dart-flutter-bible`; the token-cheap ingest blob is
 `docs/00-compact.md`). Read the doctrine **before** judging anything in this
-repo. This file carries **only this repo's deviations and local wiring** — it
-never restates bible rules (D.R.Y.: a second copy is a second truth).
+repo. This file carries only this repo's local wiring — it never restates
+bible rules (D.R.Y.: a second copy is a second truth).
 
 ## Layer & wiring
 
@@ -30,19 +30,6 @@ never restates bible rules (D.R.Y.: a second copy is a second truth).
   concrete failures extend it.
 - **Plain exceptions are reserved for the UI/presentation ring only** — never
   thrown or `try`/`catch`-ed across a usecase boundary.
-
-## Conformance
-
-No open deviations from the dart-flutter-bible: the strict analyzer block
-(`strict-casts` / `strict-inference` / `strict-raw-types`), `todo: error`, and
-`public_member_api_docs` are all enabled and the package analyzes clean; the
-`dart_arch_test` boundary gate is wired and green (see Layer & wiring above).
-
-## History
-
-The local `resumesux_cli` and `resumesux_infrastructure` folders were
-**superseded** by this repo + `resumesux_domain` (2026-10 consolidation) and
-deleted; this repository's contracts/usecases are the canonical versions.
 
 ## Working agreement (velocity)
 
