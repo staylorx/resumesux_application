@@ -25,18 +25,19 @@ config:
   providers:
     # Bring your own inference: set the provider's base URL and model, then
     # supply the API key via the environment (RESUMESUX_<PROVIDER>_KEY, see
-    # .env.example). No API keys are committed to this file.
-    lmstudio:
-      url: "http://127.0.0.1:1234"
+    # .env.example) when the provider needs one. Keys are optional — local
+    # providers (Ollama, LM Studio) need none.
+    ollama:
+      url: "http://192.168.1.230:11434"
       default: true
       models:
-        - name: "qwen/qwen2.5-coder-14b"
-          default: false
-          settings:
-            temperature: 0.8
-        - name: "google/gemma-3-12b"
-          default: false
+        - name: "gpt-oss-20b-agent:latest"
+          default: true
           settings:
             temperature: 0.7
-        - name: "qwen2.5-7b-instruct"
-          default: true
+    # lmstudio:
+    #   url: "http://127.0.0.1:1234"
+    #   default: false
+    #   models:
+    #     - name: "qwen2.5-7b-instruct"
+    #       default: true
