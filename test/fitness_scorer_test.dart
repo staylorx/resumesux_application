@@ -30,6 +30,17 @@ void main() {
       expect(prompt, contains('CANDIDATE\'S SKILLS: Lift operator'));
       expect(prompt, contains('REQUIRED SKILLS: (none listed)'));
     });
+
+    test('carries the strict weak-qualifier rule', () {
+      final prompt = buildFitPrompt(
+        candidateName: 'ML Bootcamp Grad',
+        candidateSkills: ['basic Python', 'entry-level ML coursework'],
+        jobTitle: 'Data Scientist',
+        jobRequired: ['Python', 'SQL', 'statistics'],
+      );
+      expect(prompt, contains('Weak qualifiers do not count as real skills'));
+      expect(prompt, contains('is NOT a fit even when the names overlap'));
+    });
   });
 
   group('parseFitVerdict', () {

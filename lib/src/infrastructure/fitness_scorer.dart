@@ -80,6 +80,7 @@ Rules:
 - If the candidate lacks several required skills, answer fit=false.
 - Base the answer ONLY on the listed skills, never on the job title or the candidate's name.
 - Be strict. When in doubt, answer false.
+- Weak qualifiers do not count as real skills: 'basic', 'introductory', 'entry-level', 'coursework', 'learned about', 'used', 'read about', 'blog posts', 'followed tutorials' are insufficient. Only genuine, concrete skills that a hiring manager would accept count. A candidate whose skills are only weak/adjacent is NOT a fit even when the names overlap the required list.
 
 Examples:
 candidate skills: Python, SQL, Statistics, ML; required: Python, SQL, ML -> {"fit": true, "reason": "Covers the core data stack"}
