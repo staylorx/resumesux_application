@@ -4,6 +4,7 @@ import 'package:resumesux_application/src/repositories/business/job_req_reposito
 
 /// Use case for saving AI responses for job requirements to the database.
 class SaveJobReqAiResponseUsecase {
+  /// The repository used to read and save the job requirement AI response.
   final JobReqRepository jobReqRepository;
 
   /// Creates a new instance of [SaveJobReqAiResponseUsecase].

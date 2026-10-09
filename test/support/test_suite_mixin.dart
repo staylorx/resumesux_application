@@ -31,8 +31,9 @@ mixin TestSuiteMixin {
   /// Initializes the suite directory and README.md with suite information.
   void initialize() {
     if (config.type == SuiteDirType.temporary) {
-      suiteDir =
-          Directory.systemTemp.createTempSync('test_suite_${suiteName}_').path;
+      suiteDir = Directory.systemTemp
+          .createTempSync('test_suite_${suiteName}_')
+          .path;
     } else {
       final base = config.basePath ?? path.join('build', 'output');
       suiteDir = path.join(base, suiteName);
@@ -143,8 +144,8 @@ mixin TestSuiteMixin {
             final statusEmoji = entry.status == TestStatus.passed
                 ? '✅'
                 : entry.status == TestStatus.failed
-                    ? '❌'
-                    : '⏳';
+                ? '❌'
+                : '⏳';
             final error = entry.error ?? '';
             buffer.writeln(
               '| ${entry.name} | $statusEmoji ${entry.status.name} | $duration | $error |',
@@ -154,10 +155,12 @@ mixin TestSuiteMixin {
         }
       }
 
-      final passed =
-          testEntries.values.where((e) => e.status == TestStatus.passed).length;
-      final failed =
-          testEntries.values.where((e) => e.status == TestStatus.failed).length;
+      final passed = testEntries.values
+          .where((e) => e.status == TestStatus.passed)
+          .length;
+      final failed = testEntries.values
+          .where((e) => e.status == TestStatus.failed)
+          .length;
       final running = testEntries.values
           .where((e) => e.status == TestStatus.running)
           .length;

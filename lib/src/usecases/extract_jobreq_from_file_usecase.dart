@@ -8,8 +8,13 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for creating a new job requirement from a file.
 class ExtractJobReqFromFileUsecase {
+  /// The repository used to persist the created job requirement.
   final JobReqRepository jobReqRepository;
+
+  /// The AI service used to extract job requirement data from file content.
   final AiService aiService;
+
+  /// The repository used to read file contents.
   final FileRepository fileRepository;
 
   /// Creates a new instance of [ExtractJobReqFromFileUsecase].

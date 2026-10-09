@@ -5,6 +5,7 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for retrieving all applicants
 class GetAllApplicantsUsecase {
+  /// The repository used to retrieve all applicants.
   final ApplicantRepository applicantRepository;
 
   /// Creates a new instance of [GetAllApplicantsUsecase].

@@ -4,6 +4,7 @@ import 'package:resumesux_application/src/repositories/docs/feedback_repository.
 
 /// Use case for saving AI responses for feedback to the database.
 class SaveFeedbackAiResponseUsecase {
+  /// An optional repository used to read and save the feedback AI response.
   final FeedbackRepository? feedbackRepository;
 
   /// Creates a new instance of [SaveFeedbackAiResponseUsecase].

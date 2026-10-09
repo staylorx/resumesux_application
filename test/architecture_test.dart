@@ -24,10 +24,14 @@ void main() {
   });
 
   test('production graph is populated (non-empty guard)', () {
-    final src = Collector.allLibraries(graph)
-        .where((u) => u.startsWith('package:resumesux_application/src/'));
-    expect(src.length, greaterThanOrEqualTo(40),
-        reason: 'a graph builder that scanned nothing passes vacuously');
+    final src = Collector.allLibraries(
+      graph,
+    ).where((u) => u.startsWith('package:resumesux_application/src/'));
+    expect(
+      src.length,
+      greaterThanOrEqualTo(40),
+      reason: 'a graph builder that scanned nothing passes vacuously',
+    );
   });
 
   test('production code has no dependency cycles', () {

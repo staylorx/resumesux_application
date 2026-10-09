@@ -4,6 +4,7 @@ import 'package:resumesux_application/src/repositories/business/gig_repository.d
 
 /// Use case for saving AI responses for gigs to the database.
 class SaveGigAiResponseUsecase {
+  /// The repository used to read and save gig AI responses.
   final GigRepository gigRepository;
 
   /// Creates a new instance of [SaveGigAiResponseUsecase].

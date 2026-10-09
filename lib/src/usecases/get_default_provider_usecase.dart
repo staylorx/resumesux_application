@@ -5,6 +5,7 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for retrieving the default AI provider from configuration.
 class GetDefaultProviderUsecase {
+  /// The repository used to read the configuration.
   final ConfigRepository configRepository;
 
   /// Creates a new instance of [GetDefaultProviderUsecase].

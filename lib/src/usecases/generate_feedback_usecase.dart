@@ -13,10 +13,19 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for generating feedback on an application.
 class GenerateFeedbackUsecase {
+  /// The AI service used to generate the feedback content.
   final AiService aiService;
+
+  /// The repository used to read the job requirement AI response.
   final JobReqRepository jobReqRepository;
+
+  /// The repository used to read the gig AI responses.
   final GigRepository gigRepository;
+
+  /// The repository used to read the asset AI responses.
   final AssetRepository assetRepository;
+
+  /// An optional repository used to persist the last AI response.
   final FeedbackRepository? feedbackRepository;
 
   /// Creates a new instance of [GenerateFeedbackUsecase].

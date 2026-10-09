@@ -5,6 +5,7 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for loading application configuration.
 class GetConfigUsecase {
+  /// The repository used to load the configuration.
   final ConfigRepository configRepository;
 
   /// Creates a new instance of [GetConfigUsecase].

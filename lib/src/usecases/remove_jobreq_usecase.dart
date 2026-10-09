@@ -4,6 +4,7 @@ import 'package:resumesux_application/src/repositories/business/job_req_reposito
 
 /// Use case for removing a job req
 class RemoveJobReqUsecase {
+  /// The repository used to delete the job requirement.
   final JobReqRepository jobReqRepository;
 
   /// Creates a new instance of [RemoveJobReqUsecase].

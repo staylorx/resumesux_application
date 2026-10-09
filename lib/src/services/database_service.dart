@@ -1,5 +1,5 @@
 /// Abstract interface for database operations to allow swapping implementations (e.g., Sembast, Hive, SQLite).
-// TODO: move out to a different package (e.g., resumesux_data) to avoid coupling with the application layer.
+/// Tied to the application layer here — moving it out is tracked in BACKLOG.
 abstract class DatabaseService {
   /// Initializes the database.
   Future<void> initialize();

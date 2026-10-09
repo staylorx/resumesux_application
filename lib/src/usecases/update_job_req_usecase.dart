@@ -5,6 +5,7 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for updating an existing job requirement.
 class UpdateJobReqUsecase {
+  /// The repository used to update the job requirement.
   final JobReqRepository jobReqRepository;
 
   /// Creates a new instance of [UpdateJobReqUsecase].

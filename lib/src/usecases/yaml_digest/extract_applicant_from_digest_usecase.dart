@@ -11,12 +11,22 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for extracting an applicant from digest files
 class ExtractApplicantFromDigestUseCase {
+  /// The AI service used to extract data from digest files.
   final AiService aiService;
+
+  /// The repository used to save extracted gigs.
   final GigRepository gigRepository;
+
+  /// The repository used to save extracted assets.
   final AssetRepository assetRepository;
+
+  /// The repository used to create the extracted applicant.
   final ApplicantRepository applicantRepository;
+
+  /// Generates the handle for the new applicant.
   final HandleGenerator handleGenerator;
 
+  /// Creates an [ExtractApplicantFromDigestUseCase] with the given dependencies.
   ExtractApplicantFromDigestUseCase({
     required this.aiService,
     required this.gigRepository,
@@ -25,6 +35,8 @@ class ExtractApplicantFromDigestUseCase {
     required this.handleGenerator,
   });
 
+  /// Extracts gigs and assets from the given digest path, saves them, and
+  /// returns the generated handle for the resulting applicant.
   TaskEither<Failure, ApplicantHandle> call({
     required Applicant applicant,
     required String digestPath,

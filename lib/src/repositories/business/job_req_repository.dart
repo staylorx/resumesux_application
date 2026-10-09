@@ -21,7 +21,7 @@ abstract class JobReqRepository
     String? content,
   });
 
-  // TODO: far too coupled to the file system - consider refactoring to accept a stream or similar
+  // Coupled to the file-system path per BACKLOG; refactor to accept a stream.
   /// Creates a job requirement from content and path.
   TaskEither<Failure, JobReqWithHandle> createJobReqFromContent({
     required String content,

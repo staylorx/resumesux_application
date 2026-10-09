@@ -13,15 +13,31 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for generating a complete job application including resume, cover letter, and feedback.
 class GenerateApplicationUsecase {
+  /// The use case that generates a resume for the application.
   final GenerateResumeUsecase generateResumeUsecase;
+
+  /// The use case that generates a cover letter for the application.
   final GenerateCoverLetterUsecase generateCoverLetterUsecase;
+
+  /// The use case that generates feedback for the application.
   final GenerateFeedbackUsecase generateFeedbackUsecase;
 
+  /// Saves the job requirement AI response produced during generation.
   final SaveJobReqAiResponseUsecase saveJobReqAiResponseUsecase;
+
+  /// Saves the gig AI response produced during generation.
   final SaveGigAiResponseUsecase saveGigAiResponseUsecase;
+
+  /// Saves the asset AI response produced during generation.
   final SaveAssetAiResponseUsecase saveAssetAiResponseUsecase;
+
+  /// Saves the resume AI response produced during generation.
   final SaveResumeAiResponseUsecase saveResumeAiResponseUsecase;
+
+  /// Saves the cover letter AI response produced during generation.
   final SaveCoverLetterAiResponseUsecase saveCoverLetterAiResponseUsecase;
+
+  /// Saves the feedback AI response produced during generation.
   final SaveFeedbackAiResponseUsecase saveFeedbackAiResponseUsecase;
 
   /// Creates a new instance of [GenerateApplicationUsecase].

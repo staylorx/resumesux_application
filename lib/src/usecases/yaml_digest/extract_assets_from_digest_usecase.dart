@@ -8,7 +8,10 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for extracting assets from digest markdown files.
 class ExtractAssetsFromDigestUsecase {
+  /// The AI service used to extract asset data from file content.
   final AiService aiService;
+
+  /// The repository used to save the extracted assets.
   final AssetRepository assetRepository;
 
   /// Creates a new instance of [ExtractAssetsFromDigestUsecase].

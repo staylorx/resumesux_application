@@ -4,6 +4,7 @@ import 'package:resumesux_application/src/repositories/docs/cover_letter_reposit
 
 /// Use case for saving AI responses for cover letter to the database.
 class SaveCoverLetterAiResponseUsecase {
+  /// An optional repository used to read and save the cover letter AI response.
   final CoverLetterRepository? coverLetterRepository;
 
   /// Creates a new instance of [SaveCoverLetterAiResponseUsecase].

@@ -5,6 +5,7 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for retrieving applicant information from database
 class GetApplicantUsecase {
+  /// The repository used to retrieve the applicant.
   final ApplicantRepository applicantRepository;
 
   /// Creates a new instance of [GetApplicantUsecase].

@@ -4,6 +4,7 @@ import 'package:resumesux_application/src/repositories/docs/resume_repository.da
 
 /// Use case for saving AI responses for resume to the database.
 class SaveResumeAiResponseUsecase {
+  /// An optional repository used to read and save the resume AI response.
   final ResumeRepository? resumeRepository;
 
   /// Creates a new instance of [SaveResumeAiResponseUsecase].

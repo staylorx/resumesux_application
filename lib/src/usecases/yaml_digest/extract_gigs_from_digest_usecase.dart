@@ -8,7 +8,10 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for extracting gigs from digest markdown files.
 class ExtractGigsFromDigestUsecase {
+  /// The AI service used to extract gig data from file content.
   final AiService aiService;
+
+  /// The repository used to save the extracted gigs.
   final GigRepository gigRepository;
 
   /// Creates a new instance of [ExtractGigsFromDigestUsecase].

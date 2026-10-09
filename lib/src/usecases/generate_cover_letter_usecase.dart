@@ -6,7 +6,10 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for generating a cover letter.
 class GenerateCoverLetterUsecase {
+  /// The AI service used to generate the cover letter content.
   final AiService aiService;
+
+  /// An optional repository used to persist the last AI response.
   final CoverLetterRepository? coverLetterRepository;
 
   /// Creates a new instance of [GenerateCoverLetterUsecase].

@@ -6,7 +6,10 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for generating a resume.
 class GenerateResumeUsecase {
+  /// The AI service used to generate the resume content.
   final AiService aiService;
+
+  /// An optional repository used to persist the last AI response.
   final ResumeRepository? resumeRepository;
 
   /// Creates a new instance of [GenerateResumeUsecase].

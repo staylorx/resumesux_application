@@ -7,8 +7,13 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for retrieving a job requirement, with preprocessing if needed.
 class GetJobReqUsecase {
+  /// The repository used to retrieve job requirements.
   final JobReqRepository jobReqRepository;
+
+  /// The use case used to create a job requirement when preprocessing is needed.
   final ExtractJobReqFromFileUsecase createJobReqUsecase;
+
+  /// The repository used to read job requirement files.
   final FileRepository fileRepository;
 
   /// Creates a new instance of [GetJobReqUsecase].

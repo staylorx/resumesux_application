@@ -5,6 +5,7 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for retrieving job req from database
 class GetJobReqUsecase {
+  /// The repository used to retrieve the job requirement.
   final JobReqRepository repository;
 
   /// gets the instance of [GetJobReqUsecase].

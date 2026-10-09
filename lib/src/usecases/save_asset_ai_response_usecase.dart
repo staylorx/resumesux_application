@@ -4,6 +4,7 @@ import 'package:resumesux_application/src/repositories/business/asset_repository
 
 /// Use case for saving AI responses for assets to the database.
 class SaveAssetAiResponseUsecase {
+  /// The repository used to read and save asset AI responses.
   final AssetRepository assetRepository;
 
   /// Creates a new instance of [SaveAssetAiResponseUsecase].

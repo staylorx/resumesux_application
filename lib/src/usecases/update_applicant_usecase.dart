@@ -5,6 +5,7 @@ import 'package:resumesux_domain/resumesux_domain.dart';
 
 /// Use case for updating an applicant
 class UpdateApplicantUsecase {
+  /// The repository used to update the applicant.
   final ApplicantRepository applicantRepository;
 
   /// Creates a new instance of [UpdateApplicantUsecase].
