@@ -1,0 +1,27 @@
+ resumesux  APPLICANTS / matched  (10)  · Jane Doe
+┌─APPLICANTS───────────────────────────────┐ ┌───────────────────────────────────────────────────────────────┐
+│NAME                STATUS    SCORE   AGE │ │ identity                                                      │
+│Jane Doe            matched   0.92    10m │ │                                                               │
+│John Roe            pending   0.61    1h  │ │ name           Jane Doe                                       │
+│Al Smith            failed    0.44    3h  │ │ pref name      Jay                                            │
+│May Chen            matched   0.88    4h  │ │ email          jane@x.com                                     │
+│Ravi Patel          ready     0.77    6h  │ │ phone          +1 555 0100                                    │
+│Kim Lee             pending   0.59    1d  │ │ links                                                         │
+│Nina Ortiz          failed    0.38    2d  │ │                                                               │
+│Omar Haddad         matched   0.91    2d  │ │ linkedin       /in/Jane Doe                                   │
+│Sara Kim            ready     0.70    3d  │ │ github         github.com/janedoe                             │
+│Leo Martin          pending   0.55    4d  │ │ portfolio      portfolio.xyz                                  │
+│                                          │ │ counts                                                        │
+│                                          │ │                                                               │
+│                                          │ │ gigs           3                                              │
+│                                          │ │ assets         5                                              │
+│                                          │ │ tags                                                          │
+│                                          │ │                                                               │
+│                                          │ │ tags           <license> <edu>                                │
+│                                          │ │                                                               │
+│                                          │ │                                                               │
+│                                          │ │                                                               │
+│                                          │ │                                                               │
+└──────────────────────────────────────────┘ └───────────────────────────────────────────────────────────────┘
+ ● ready  c generate  : cmd  ? help  q quit                                                       10 · sort:-
+
