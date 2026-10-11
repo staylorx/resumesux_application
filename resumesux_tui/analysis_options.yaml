@@ -1,0 +1,13 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  language:
+    strict-casts: false
+    strict-inference: false
+    strict-raw-types: false
+  exclude:
+    - build/**
+
+linter:
+  rules:
+    strict_top_level_inference: false

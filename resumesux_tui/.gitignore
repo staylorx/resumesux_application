@@ -1,0 +1,14 @@
+# Dart
+.dart_tool/
+build/
+*.dill
+*.snapshot
+.packages
+/bin/*.dill
+
+# Editor/OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

@@ -1,0 +1,21 @@
+name: resumesux_tui
+description: k9s-style full-screen TUI for ResumesUX (the presentation ring).
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ">=3.11.0 <4.0.0"
+
+dependencies:
+  resumesux_application:
+    path: ../
+  resumesux_domain:
+    git:
+      url: https://github.com/staylorx/resumesux_domain
+  dart_console: ^4.1.4
+  fpdart: ^1.2.0
+  args: ^2.5.0
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.0.0
