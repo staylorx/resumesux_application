@@ -22,3 +22,21 @@ dev_dependencies:
   path: ^1.8.3
   test: ^1.28.0
   mocktail: ^1.0.4
+  # Scripts contract (bible §2.1): CI/agents invoke `dart run melos run <task>`.
+  melos: ^8.8.0
+
+melos:
+  useRootAsPackage: true
+  scripts:
+    analyze:
+      run: dart analyze --fatal-infos --fatal-warnings
+    test:
+      run: dart test
+    clean:deep:
+      description: >
+        Targeted deep clean of generated artifacts — removes .dart_tool/,
+        build/, and .logs/ at the package root. Uses tool/clean_deep.dart (pure
+        dart:io, cross-platform) rather than bare `git clean -fdx`, which would
+        delete pubspec.lock (ignored via .gitignore) and .idea/. Never touches
+        source, pubspec.yaml, .gitignore, or AGENTS.md.
+      run: dart run tool/clean_deep.dart
