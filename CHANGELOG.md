@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `test/fixtures/` — the digest / jobreq / output sample data, moved here from the
+  Obsidian vault (`Projects/Work/ResumesUX/TestAssets/`) so the fixtures live with the
+  code that reads them. Synthetic test data only; the real career corpus stays in the vault.
+  `test/fixtures/README.md` documents the shapes. Also noted in `README.md` → Testing.
 - `BACKLOG.md` — the repo's open/pending backlog. First entry set covers the
   Windows-lane build and analysis audit and every divergence from the
   `staylorx/dart-flutter-bible` doctrine found during it.

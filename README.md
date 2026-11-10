@@ -53,6 +53,11 @@ result.fold(
 
 Run tests with `dart test`. The test suite includes unit tests for use cases and repository contracts.
 
+`test/fixtures/` holds the sample data the use cases read — `digest/<persona>/gigs|assets`,
+`jobreqs/<employer>/<role>`, and `output/` example resumes. It is synthetic test data; the real
+career corpus stays in the vault, not in this repo. See `test/fixtures/README.md`.
+
+
 ### Fitness screening (persona → job)
 
 `tool/fitness/run_fitness.dart` scores every persona fixture against every job fixture and reports per-pair pass-rates, accuracy, and false-accepts. It is the guardrail for the "reject a heavy-equipment operator for a data-scientist job (and vice versa)" requirement.

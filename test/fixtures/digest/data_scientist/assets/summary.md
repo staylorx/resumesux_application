@@ -1,0 +1,2 @@
+## Professional Summary
+Accomplished data scientist with 6+ years of experience in machine learning, statistical analysis, and big data. Expertise in Python, R, and cloud platforms. Proven track record of delivering data-driven solutions that drive business growth.

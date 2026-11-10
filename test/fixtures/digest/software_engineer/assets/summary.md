@@ -1,0 +1,2 @@
+## Professional Summary
+Experienced software engineer with 7+ years in full-stack development, specializing in Dart/Flutter mobile apps and web technologies. Passionate about clean code, performance optimization, and user-centric design.
